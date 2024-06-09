@@ -1,13 +1,13 @@
 [
 {
   "directory": "/home/rodgergraser7u/projects/ThreadPool/build",
-  "command": "/usr/bin/c++  -I/home/rodgergraser7u/projects/ThreadPool/src/include -g -o CMakeFiles/testthreadpool.dir/test/testthreadpool.cc.o -c /home/rodgergraser7u/projects/ThreadPool/test/testthreadpool.cc",
+  "command": "/usr/bin/c++  -I/home/rodgergraser7u/projects/ThreadPool/src/include -g -std=gnu++17 -o CMakeFiles/testthreadpool.dir/test/testthreadpool.cc.o -c /home/rodgergraser7u/projects/ThreadPool/test/testthreadpool.cc",
   "file": "/home/rodgergraser7u/projects/ThreadPool/test/testthreadpool.cc",
   "output": "CMakeFiles/testthreadpool.dir/test/testthreadpool.cc.o"
 },
 {
   "directory": "/home/rodgergraser7u/projects/ThreadPool/build/src",
-  "command": "/usr/bin/c++ -DThreadPool_EXPORTS -I/home/rodgergraser7u/projects/ThreadPool/src/include -g -fPIC -o CMakeFiles/ThreadPool.dir/threadpool.cc.o -c /home/rodgergraser7u/projects/ThreadPool/src/threadpool.cc",
+  "command": "/usr/bin/c++ -DThreadPool_EXPORTS -I/home/rodgergraser7u/projects/ThreadPool/src/include -g -std=gnu++17 -fPIC -o CMakeFiles/ThreadPool.dir/threadpool.cc.o -c /home/rodgergraser7u/projects/ThreadPool/src/threadpool.cc",
   "file": "/home/rodgergraser7u/projects/ThreadPool/src/threadpool.cc",
   "output": "src/CMakeFiles/ThreadPool.dir/threadpool.cc.o"
 }

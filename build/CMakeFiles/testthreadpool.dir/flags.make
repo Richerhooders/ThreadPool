@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I/home/rodgergraser7u/projects/ThreadPool/src/include
 
-CXX_FLAGS = -g
+CXX_FLAGS = -g -std=gnu++17
 

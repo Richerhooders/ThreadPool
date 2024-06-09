@@ -1,5 +1,6 @@
 # 设置cmake的最低版本和项目名称
 cmake_minimum_required(VERSION 3.10)
+set(CMAKE_CXX_STANDARD 17)
 project(ThreadPool)
 
 #生成debug版本，可以使用gdb调试

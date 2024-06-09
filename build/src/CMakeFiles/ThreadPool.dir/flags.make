@@ -6,5 +6,5 @@ CXX_DEFINES = -DThreadPool_EXPORTS
 
 CXX_INCLUDES = -I/home/rodgergraser7u/projects/ThreadPool/src/include
 
-CXX_FLAGS = -g -fPIC
+CXX_FLAGS = -g -std=gnu++17 -fPIC
 
