@@ -48,6 +48,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/testthreadpool.dir/DependInfo.cmake"
+  "CMakeFiles/testthreadfinal.dir/DependInfo.cmake"
   "src/CMakeFiles/ThreadPool.dir/DependInfo.cmake"
   )

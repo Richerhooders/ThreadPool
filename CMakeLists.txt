@@ -22,5 +22,6 @@ add_subdirectory(src)
 #  example包含了mprpc框架使用的示例代码
 add_subdirectory(test)
 
-add_executable(testthreadpool test/testthreadpool.cc)
-target_link_libraries(testthreadpool ThreadPool pthread)
+# add_executable(testthreadpool test/testthreadpool.cc)
+add_executable(testthreadfinal test/testthreadfinal.cc)
+target_link_libraries(testthreadfinal ThreadPool pthread)

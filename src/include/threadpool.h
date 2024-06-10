@@ -202,7 +202,7 @@ private:
     std::atomic_int idleThreadSize_;//记录空闲线程的数量
     int threadSizeThresdHold_; //现成数量上限阈值
 
-    std::queue<std::shared_ptr<Task>> taskQue_; //任务队列 不可能要求用户传入一个生命周期足够长的对象
+    std::queue<std::shared_ptr<Task>> taskQue_; //任务队列 不可能要求用户传入一个生命周期足够长的对象所以用强智能指针
     std::atomic_uint taskSize_; //任务的数量
     int taskQueMaxThreshHold_;  //任务队列数量上限阈值
 
