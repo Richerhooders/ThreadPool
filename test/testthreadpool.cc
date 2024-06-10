@@ -24,15 +24,28 @@ private:
 };
 
 int main() {
+    {
 
-    ThreadPool pool;
-    pool.start(4);
+        ThreadPool pool;
+        // pool.setMode(PoolMode::MODE_CACHED);
+        pool.setMode(PoolMode::MODE_FIXED);
+        pool.start(2);
 
-    Result res1 = pool.submitTask(std::make_shared<MyTask>(1,100000000));
+        Result res1 = pool.submitTask(std::make_shared<MyTask>(1,100000000));
+        Result res2 = pool.submitTask(std::make_shared<MyTask>(100000001,200000000));
+        pool.submitTask(std::make_shared<MyTask>(100000001,200000000));
+        pool.submitTask(std::make_shared<MyTask>(100000001,200000000));
+        pool.submitTask(std::make_shared<MyTask>(100000001,200000000));
 
-    unsigned long long sum1 = res1.get().cast_<unsigned long long>();//阻塞等待任务的执行结果
-    std::cout << sum1 << std::endl;
+        unsigned long long sum1 = res1.get().cast_<unsigned long long>();//阻塞等待任务的执行结果
+        std::cout << sum1 << std::endl;
+
+    }//这里Result对象也要析构！！在vs下，条件变量的析构会释放相应资源
+    //Result 析构 -> Result中的Semphore析构 -> Semphore中的互斥量mutex和条件变量cond_析构,但是g++库中没有释放资源
+
+    // std::cout << sum1 << std::endl;
     std::cout << "main over" << std::endl;
+    getchar();
   /*  //问题：threadPool对象析构以后，怎么样把线程池相关的线程资源全部回收？
     ThreadPool pool;
     //用户自己设置线程池的工作模式
