@@ -9,6 +9,7 @@
 #include <condition_variable>
 #include <functional>
 #include <thread>
+#include <unordered_map>
 
 class Any {
 public:
@@ -121,7 +122,7 @@ enum class PoolMode {
 class Thread {
 public:
     //线程构造函数类型
-    using ThreadFunc = std::function<void()>;//用来接受函数对象
+    using ThreadFunc = std::function<void(int)>;//用来接受函数对象
 
     //线程构造
     Thread(ThreadFunc func);
@@ -130,8 +131,12 @@ public:
     ~Thread();
     //启动线程
     void start();
+    //获取线程id
+    int getId() const;
 private:
     ThreadFunc func_;
+    static int generateId_;
+    int threadId_; //保存线程id
 };
 /*
 example:
@@ -161,20 +166,30 @@ public:
     //设置task任务队列上限阈值
     void setTaskQueMaxThreshHold(int threshhold);
 
+    //设置线程数量上限阈值
+    void setThreadSizeThreshHold(int threshhold);
+
     //给线程池提交任务
     Result submitTask(std::shared_ptr<Task> sp);
 
     //开启线程池
-    void start(int initThreadSize = 4);
+    void start(int initThreadSize = std::thread::hardware_concurrency());
 
     ThreadPool(const ThreadPool&) = delete;
     ThreadPool &operator = (const ThreadPool&) = delete;
 private:
     //定义线程函数
-    void threadFunc();
+    void threadFunc(int threadId);
+
+    //检查pool 运行状态
+    bool checkRunningState() const;
 private:
-    std::vector<std::unique_ptr<Thread>> threads_; //线程列表
+    // std::vector<std::unique_ptr<Thread>> threads_; //线程列表
+    std::unordered_map<int,std::unique_ptr<Thread>> threads_;//线程列表
     size_t initThreadSize_; //初始线程数量
+    std::atomic_int curThreadSize_;//记录当前线程池里面现成数量
+    std::atomic_int idleThreadSize_;//记录空闲线程的数量
+    int threadSizeThresdHold_; //现成数量上限阈值
 
     std::queue<std::shared_ptr<Task>> taskQue_; //任务队列 不可能要求用户传入一个生命周期足够长的对象
     std::atomic_uint taskSize_; //任务的数量
@@ -183,8 +198,11 @@ private:
     std::mutex taskQueMtx_; // 保证任务队列的线程安全
     std::condition_variable notFull_; //任务队列不满
     std::condition_variable notEmpty_; //任务队列不空
+    std::condition_variable exitCond_; //等待线程资源全部回收
 
     PoolMode poolMode_; //当前线程池的工作模式
+    //表示当前线程池的启动状态
+    std::atomic_bool isPoolRunning_; // 可能在多个线程中，使用原子类型
 };
 
 #endif
